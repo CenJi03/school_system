@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # Backend Django service
+  backend:
+    build:
+      context: ../backend
+      dockerfile: ../docker/Dockerfile.django
+    container_name: auth-system-backend
+    volumes:
+      - ../backend:/app
+      - static_volume:/app/static
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=your_django_secret_key_here
+      - ALLOWED_HOSTS=localhost,127.0.0.1
+      - CORS_ALLOWED_ORIGINS=http://localhost:8080,http://127.0.0.1:8080
+    command: >
+      bash -c "python manage.py migrate &&
+               python manage.py collectstatic --noinput &&
+               python manage.py runserver 0.0.0.0:8000"
+    restart: unless-stopped
+
+  # Frontend Vue.js service
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../docker/Dockerfile.vue
+    container_name: auth-system-frontend
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    ports:
+      - "8080:8080"
+    environment:
+      - VUE_APP_API_URL=http://localhost:8000
+    command: npm run serve
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  static_volume:
+  media_volume:
