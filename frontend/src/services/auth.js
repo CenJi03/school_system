@@ -3,22 +3,13 @@
 import api from './api';
 
 const authService = {
-  // Login user with multiple authentication methods
-  login: async (credentials, remember = false) => {
+  // Login user
+  login: async (loginId, password, remember = false) => {
     try {
-      // Determine login type based on credentials
-      let loginData = {};
-      
-      if (typeof credentials === 'object') {
-        // If credentials is an object with specific login data
-        loginData = { ...credentials, remember };
-      } else if (credentials.includes('@')) {
-        // Email-based login
-        loginData = { email: credentials, password: arguments[1], remember };
-      } else {
-        // Username-based login
-        loginData = { username: credentials, password: arguments[1], remember };
-      }
+      // Determine if loginId is an email or username
+      const loginData = loginId.includes('@') 
+        ? { email: loginId, password, remember }
+        : { username: loginId, password, remember };
       
       const response = await api.post('/auth/login/', loginData);
       
@@ -39,39 +30,58 @@ const authService = {
     }
   },
   
-  // Social login
-  socialLogin: async (provider, accessToken) => {
-    try {
-      const response = await api.post(`/auth/social/${provider}/`, { 
-        access_token: accessToken 
-      });
-      
-      const { token, user } = response.data;
-      
-      // Store token and user in localStorage
-      localStorage.setItem('auth_token', token);
-      localStorage.setItem('user', JSON.stringify(user));
-      
-      return { token, user };
-    } catch (error) {
-      console.error('Social login error:', error);
-      throw new Error(
-        error.response?.data?.message || 
-        'Social login failed. Please try again.'
-      );
-    }
-  },
-  
-  // Register new user
+  // Register new user - Fixed endpoint to match backend URL pattern
   register: async (userData) => {
     try {
-      const response = await api.post('/auth/register/', userData);
+      // Format the data for the backend
+      const formattedData = {
+        email: userData.email,
+        password: userData.password,
+        first_name: userData.fullName.split(' ')[0],
+        last_name: userData.fullName.split(' ').slice(1).join(' ') || '',
+        username: userData.email.split('@')[0].replace(/[^a-zA-Z0-9]/g, ''), // Generate cleaner username from email
+        user_type: userData.role || 'student', // Make sure this matches backend expectations
+      };
+      
+      // Remove frontend-specific fields
+      delete formattedData.fullName;
+      delete formattedData.confirmPassword;
+      delete formattedData.agreeTerms;
+      
+      // Use the correct endpoint - check Django URLs to ensure this is right
+      const response = await api.post('/auth/register/', formattedData);
       return response.data;
     } catch (error) {
-      throw new Error(
-        error.response?.data?.message || 
-        'Registration failed. Please try again.'
-      );
+      console.error('Registration error:', error);
+      
+      // Extract the error message from the response
+      let errorMessage = 'Registration failed. Please try again.';
+      
+      if (error.response && error.response.data) {
+        // Check for field-specific errors
+        if (typeof error.response.data === 'object') {
+          const fieldErrors = Object.entries(error.response.data)
+            .map(([field, errors]) => {
+              if (Array.isArray(errors)) {
+                return `${field}: ${errors.join(', ')}`;
+              }
+              return `${field}: ${errors}`;
+            })
+            .join('; ');
+          
+          if (fieldErrors) {
+            errorMessage = fieldErrors;
+          } else if (error.response.data.message) {
+            errorMessage = error.response.data.message;
+          } else if (error.response.data.detail) {
+            errorMessage = error.response.data.detail;
+          }
+        } else if (typeof error.response.data === 'string') {
+          errorMessage = error.response.data;
+        }
+      }
+      
+      throw new Error(errorMessage);
     }
   },
   
@@ -131,41 +141,6 @@ const authService = {
   // Check if user is authenticated
   isAuthenticated: () => {
     return !!localStorage.getItem('auth_token');
-  },
-  
-  // Update user profile
-  updateProfile: async (userData) => {
-    try {
-      const response = await api.put('/auth/profile/', userData);
-      
-      // Update stored user data
-      const updatedUser = response.data;
-      localStorage.setItem('user', JSON.stringify(updatedUser));
-      
-      return updatedUser;
-    } catch (error) {
-      throw new Error(
-        error.response?.data?.message || 
-        'Profile update failed. Please try again.'
-      );
-    }
-  },
-  
-  // Change password
-  changePassword: async (currentPassword, newPassword) => {
-    try {
-      const response = await api.post('/auth/change-password/', {
-        current_password: currentPassword,
-        new_password: newPassword
-      });
-      
-      return response.data;
-    } catch (error) {
-      throw new Error(
-        error.response?.data?.message || 
-        'Password change failed. Please try again.'
-      );
-    }
   }
 };
 

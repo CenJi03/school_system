@@ -1,0 +1,130 @@
+/* ===== Form Elements ===== */
+.o-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Form layout helpers */
+.o-form__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.o-form__column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.o-form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.o-form-row .o-form-group {
+  flex: 1 1 300px;
+}
+
+/* Form group */
+.o-form-group {
+  margin-bottom: 1.25rem;
+}
+
+/* Form labels */
+.o-form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+
+/* Form controls */
+.o-form-control {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  background-clip: padding-box;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.o-form-control:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+}
+
+/* Form select */
+select.o-form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236c757d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  padding-right: 2.5rem;
+}
+
+/* Form textarea */
+textarea.o-form-control {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Form validation states */
+.o-form-control.is-invalid {
+  border-color: var(--color-danger);
+}
+
+.o-form-feedback,
+.o-form-error-text {
+  display: block;
+  margin-top: 0.375rem;
+  font-size: 0.85rem;
+  color: var(--color-danger);
+}
+
+/* Form checkbox */
+.o-form-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.o-form-check-input {
+  margin-right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+.o-form-check-label {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+/* Filter form specific styles */
+.o-filter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .o-form__grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .o-form-row {
+    flex-direction: column;
+  }
+}

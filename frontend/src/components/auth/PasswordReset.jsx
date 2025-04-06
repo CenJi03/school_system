@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import Button from '../common/Button';
+import '../../assets/styles/auth/auth.css';
 
 const PasswordReset = () => {
   const [email, setEmail] = useState('');

@@ -29,24 +29,13 @@ export const AuthProvider = ({ children }) => {
     initAuth();
   }, []);
   
-  // Login function - updated to support multiple login types
-  const login = async (loginId, password, remember) => {
+  // Login function
+  const login = async (loginId, password, remember = false) => {
     setLoading(true);
     setError(null);
     
     try {
-      let result;
-      
-      // Detect if loginId is an object (for social login) or string (for traditional login)
-      if (typeof loginId === 'object') {
-        // Social login or specialized authentication
-        result = await authService.login(loginId);
-      } else {
-        // Traditional login with username/email and password
-        // Ensure password and remember are passed correctly
-        result = await authService.login(loginId, password, remember);
-      }
-      
+      const result = await authService.login(loginId, password, remember);
       setUser(result.user);
       return result.user;
     } catch (err) {
@@ -90,53 +79,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
   
-  // Update profile function
-  const updateProfile = async (userData) => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      const updatedUser = await authService.updateProfile(userData);
-      setUser(updatedUser);
-      return updatedUser;
-    } catch (err) {
-      setError(err);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
-  
-  // Password reset function
-  const resetPassword = async (email) => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      return await authService.resetPassword(email);
-    } catch (err) {
-      setError(err);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Complete reset password with token
-  const confirmResetPassword = async (token, newPassword) => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      return await authService.confirmResetPassword(token, newPassword);
-    } catch (err) {
-      setError(err);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
-  
   // Check if user has a specific role
   const hasRole = (roles) => {
     if (!user) return false;
@@ -147,6 +89,11 @@ export const AuthProvider = ({ children }) => {
     
     return user.role === roles;
   };
+
+  // Check if user has system access
+  const hasSystemAccess = () => {
+    return user && user.is_admin_created === true;
+  };
   
   // Context value
   const value = {
@@ -156,10 +103,8 @@ export const AuthProvider = ({ children }) => {
     login,
     register,
     logout,
-    updateProfile,
-    resetPassword,
-    confirmResetPassword,
     hasRole,
+    hasSystemAccess,
     isAuthenticated: !!user
   };
   

@@ -2,16 +2,17 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import PasswordReset from '../../components/auth/PasswordReset';
+import '../../assets/styles/auth/auth.css';
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
-  
+
   useEffect(() => {
     // Set page title
     document.title = 'Forgot Password | Language School Management';
   }, []);
-  
+
   useEffect(() => {
     // Redirect if already authenticated
     if (isAuthenticated && user) {
@@ -19,7 +20,7 @@ const ForgotPassword = () => {
       navigate('/dashboard');
     }
   }, [isAuthenticated, user, navigate]);
-  
+
   return (
     <div className="o-auth-page o-auth-page--reset">
       <div className="o-auth-container">

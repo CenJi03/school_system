@@ -6,6 +6,7 @@ import { useAuth } from '../hooks/useAuth';
 import apiService from '../services/api';
 import { THEME_CONFIG, FEATURES } from '../config';
 import toast from 'react-hot-toast';
+import '../assets/styles/Settings.css';
 
 const Settings = () => {
   const { user } = useAuth();

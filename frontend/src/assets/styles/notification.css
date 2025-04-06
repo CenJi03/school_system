@@ -1,0 +1,193 @@
+/* src/assets/styles/notification.css */
+
+/* Notification Container */
+.o-notification-container {
+    position: fixed;
+    z-index: var(--z-index-tooltip);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    max-width: 400px;
+    width: 100%;
+    pointer-events: none;
+  }
+  
+  .o-notification-container--top-right {
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    align-items: flex-end;
+  }
+  
+  .o-notification-container--top-left {
+    top: var(--spacing-md);
+    left: var(--spacing-md);
+    align-items: flex-start;
+  }
+  
+  .o-notification-container--top-center {
+    top: var(--spacing-md);
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+  }
+  
+  .o-notification-container--bottom-right {
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+    align-items: flex-end;
+  }
+  
+  .o-notification-container--bottom-left {
+    bottom: var(--spacing-md);
+    left: var(--spacing-md);
+    align-items: flex-start;
+  }
+  
+  .o-notification-container--bottom-center {
+    bottom: var(--spacing-md);
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+  }
+  
+  /* Notification */
+  .o-notification {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 350px;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    background-color: var(--color-background);
+    margin-bottom: var(--spacing-sm);
+    pointer-events: auto;
+    animation: notification-enter 0.3s ease-out forwards;
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  
+  .o-notification--leaving {
+    animation: notification-exit 0.3s ease-in forwards;
+  }
+  
+  .o-notification__icon {
+    flex-shrink: 0;
+    margin-right: var(--spacing-sm);
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .o-notification__content {
+    flex-grow: 1;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    margin-right: var(--spacing-sm);
+    word-break: break-word;
+  }
+  
+  .o-notification__close {
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-light);
+    padding: 0;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--transition-fast);
+  }
+  
+  .o-notification__close:hover {
+    color: var(--color-text);
+  }
+  
+  /* Notification Types */
+  .o-notification--info {
+    border-left: 4px solid var(--color-info);
+  }
+  
+  .o-notification--info .o-notification__icon {
+    color: var(--color-info);
+  }
+  
+  .o-notification--success {
+    border-left: 4px solid var(--color-success);
+  }
+  
+  .o-notification--success .o-notification__icon {
+    color: var(--color-success);
+  }
+  
+  .o-notification--warning {
+    border-left: 4px solid var(--color-warning);
+  }
+  
+  .o-notification--warning .o-notification__icon {
+    color: var(--color-warning);
+  }
+  
+  .o-notification--error {
+    border-left: 4px solid var(--color-danger);
+  }
+  
+  .o-notification--error .o-notification__icon {
+    color: var(--color-danger);
+  }
+  
+  /* Animations */
+  @keyframes notification-enter {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes notification-exit {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 480px) {
+    .o-notification-container {
+      max-width: 100%;
+      padding: 0 var(--spacing-sm);
+    }
+    
+    .o-notification {
+      max-width: 100%;
+    }
+    
+    .o-notification-container--top-center,
+    .o-notification-container--top-left,
+    .o-notification-container--top-right {
+      top: var(--spacing-xs);
+      right: 0;
+      left: 0;
+      align-items: center;
+    }
+    
+    .o-notification-container--bottom-center,
+    .o-notification-container--bottom-left,
+    .o-notification-container--bottom-right {
+      bottom: var(--spacing-xs);
+      right: 0;
+      left: 0;
+      align-items: center;
+    }
+  }

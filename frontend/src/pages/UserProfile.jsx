@@ -4,6 +4,7 @@ import Button from '../components/common/Button';
 import { useAuth } from '../hooks/useAuth';
 import apiService from '../services/api';
 import toast from 'react-hot-toast';
+import "../assets/styles/UserProfile.css";
 
 const UserProfile = () => {
   const { user, updateProfile } = useAuth();

@@ -1,0 +1,336 @@
+/* ======================================= */
+/* 🎨 Design System: Color Palette */
+/* ======================================= */
+:root {
+  /* Primary Color Palette */
+  --primary-color: #3498db;     /* Bright Blue */
+  --primary-light: #5DADE2;     /* Lighter Blue */
+  --primary-dark: #2980b9;      /* Dark Blue */
+  
+  /* Secondary Color Palette */
+  --secondary-color: #2ecc71;   /* Emerald Green */
+  
+  /* Neutral Colors */
+  --text-color: #2C3E50;        /* Deep Slate Gray */
+  --background-color: #F4F6F8;  /* Soft Gray Background */
+  --white: #ffffff;             /* Pure White */
+  --gray-light: #6C757D;        /* Light Gray */
+}
+
+/* ======================================= */
+/* 🌐 Global Typography & Base Styles */
+/* ======================================= */
+.o-page--home {
+  font-family: 'Inter', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+}
+
+/* ======================================= */
+/* 🚀 Hero Section Styling */
+/* ======================================= */
+.o-home-hero {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  color: var(--white);
+  text-align: center;
+  padding: 6rem 1rem;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.o-home-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, rgba(255,255,255,0.2), transparent 50%);
+  z-index: 1;
+}
+
+.o-home-hero__content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.o-home-hero__title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.o-home-hero__subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2.5rem;
+  color: rgba(255,255,255,0.9);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.o-home-hero__actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 2;
+  position: relative;
+}
+
+/* ======================================= */
+/* 🔘 Button Styles with Hover Effects */
+/* ======================================= */
+.o-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-size: 1rem;
+  min-width: 150px;
+  cursor: pointer;
+}
+
+.o-btn--primary {
+  background-color: var(--primary-dark);
+  color: var(--white);
+  border: none;
+  box-shadow: 0 10px 20px rgba(41, 128, 185, 0.3);
+}
+
+.o-btn--primary:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 22px rgba(41, 128, 185, 0.4);
+}
+
+.o-btn--secondary {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  border: none;
+  box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+}
+
+.o-btn--secondary:hover {
+  background-color: #27ae60;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 22px rgba(46, 204, 113, 0.4);
+}
+
+/* ======================================= */
+/* 📦 Features Section Layout */
+/* ======================================= */
+.o-home-features {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 4rem 1rem;
+  background-color: var(--background-color);
+}
+
+.o-home-feature {
+  text-align: center;
+  max-width: 300px;
+  padding: 2rem 1.5rem;
+  background-color: var(--white);
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.o-home-feature::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(52, 152, 219, 0.1), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.o-home-feature:hover::before {
+  opacity: 1;
+}
+
+.o-home-feature:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.o-home-feature__icon {
+  font-size: 3rem;
+  color: var(--primary-dark);
+  margin-bottom: 1.5rem;
+}
+
+.o-home-feature__title {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.o-home-feature__description {
+  color: var(--gray-light);
+  font-size: 0.95rem;
+}
+
+/* ======================================= */
+/* 🦶 Footer Styling */
+/* ======================================= */
+.o-home-footer {
+  background-color: #2C3E50;
+  color: var(--white);
+  padding: 3rem 1rem;
+}
+
+.o-home-footer__content {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.o-home-footer__contact,
+.o-home-footer__links {
+  flex: 1;
+  margin: 0 1rem;
+}
+
+.o-home-footer__contact h3,
+.o-home-footer__links h3 {
+  color: var(--white);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.o-home-footer__contact h3::after,
+.o-home-footer__links h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: var(--primary-light);
+}
+
+.o-home-footer__contact p {
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.o-home-footer__contact p i {
+  margin-right: 0.75rem;
+  width: 20px;
+  text-align: center;
+}
+
+.o-home-footer__links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.o-home-footer__links ul li {
+  margin-bottom: 0.5rem;
+}
+
+.o-home-footer__links ul li a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.o-home-footer__links ul li a:hover {
+  color: var(--white);
+  transform: translateX(5px);
+}
+
+.o-home-footer__copyright {
+  text-align: center;
+  padding-top: 2rem;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+}
+
+/* ======================================= */
+/* 📱 Responsive Design Breakpoints */
+/* ======================================= */
+@media screen and (max-width: 1024px) {
+  .o-home-hero__title { font-size: 2.5rem; }
+  .o-home-features {
+      flex-direction: column;
+      align-items: center;
+  }
+  .o-home-feature { margin-bottom: 1.5rem; }
+}
+
+@media screen and (max-width: 768px) {
+  .o-home-hero { padding: 4rem 1rem; }
+  .o-home-hero__title { font-size: 2rem; }
+  .o-home-hero__subtitle { font-size: 1rem; }
+  .o-home-hero__actions {
+      flex-direction: column;
+      align-items: center;
+  }
+  .o-btn {
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 1rem;
+  }
+  .o-home-footer__content {
+      flex-direction: column;
+      text-align: center;
+  }
+  .o-home-footer__contact,
+  .o-home-footer__links { margin: 1rem 0; }
+  .o-home-footer__contact h3::after,
+  .o-home-footer__links h3::after {
+      left: 50%;
+      transform: translateX(-50%);
+  }
+  .o-home-footer__contact p { justify-content: center; }
+}
+
+@media screen and (max-width: 480px) {
+  .o-home-hero__title { font-size: 1.8rem; }
+  .o-home-hero__subtitle { font-size: 0.9rem; }
+}
+
+/* ======================================= */
+/* ♿ Accessibility & Animation Enhancements */
+/* ======================================= */
+.o-btn:focus {
+  outline: 3px solid rgba(52, 152, 219, 0.5);
+  outline-offset: 2px;
+}
+
+@keyframes subtle-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.o-home-feature:hover .o-home-feature__icon {
+  animation: subtle-pulse 1s infinite;
+}

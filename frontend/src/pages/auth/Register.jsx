@@ -2,16 +2,17 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import RegisterForm from '../../components/auth/RegisterForm';
+import '../../assets/styles/auth/auth.css';
 
 const Register = () => {
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
-  
+
   useEffect(() => {
     // Set page title
     document.title = 'Register | Language School Management';
   }, []);
-  
+
   useEffect(() => {
     // Redirect if already authenticated
     if (isAuthenticated && user) {
@@ -23,7 +24,7 @@ const Register = () => {
       }
     }
   }, [isAuthenticated, user, navigate]);
-  
+
   return (
     <div className="o-auth-page o-auth-page--register">
       <div className="o-auth-container">

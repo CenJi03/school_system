@@ -3,6 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import Button from '../../components/common/Button';
 import toast from 'react-hot-toast';
+import '../../assets/styles/auth/auth.css';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
@@ -83,7 +84,7 @@ const ResetPassword = () => {
       </div>
     );
   }
-  
+
   if (isTokenValid === false) {
     return (
       <div className="o-auth-page o-auth-page--reset">
@@ -102,7 +103,7 @@ const ResetPassword = () => {
       </div>
     );
   }
-  
+
   if (isSubmitted) {
     return (
       <div className="o-auth-page o-auth-page--reset">
@@ -122,7 +123,7 @@ const ResetPassword = () => {
       </div>
     );
   }
-  
+
   return (
     <div className="o-auth-page o-auth-page--reset">
       <div className="o-auth-container">
@@ -131,16 +132,16 @@ const ResetPassword = () => {
           <h1 className="o-auth-brand__name">Language School</h1>
           <p className="o-auth-brand__tagline">Set your new password</p>
         </div>
-        
+
         <div className="o-auth-form o-auth-form--reset">
           <h1 className="o-auth-form__title">Create New Password</h1>
-          
+
           {errors.form && (
             <div className="o-alert o-alert--danger">
               {errors.form}
             </div>
           )}
-          
+
           <form onSubmit={handleSubmit} className="o-auth-form__form">
             <div className="o-form-group">
               <label htmlFor="password" className="o-form-label">
@@ -159,7 +160,7 @@ const ResetPassword = () => {
                 <span className="o-form-error-text">{errors.password}</span>
               )}
             </div>
-            
+
             <div className="o-form-group">
               <label htmlFor="confirmPassword" className="o-form-label">
                 Confirm New Password
@@ -177,8 +178,8 @@ const ResetPassword = () => {
                 <span className="o-form-error-text">{errors.confirmPassword}</span>
               )}
             </div>
-            
-            <Button 
+
+            <Button
               type="submit"
               variant="primary"
               fullWidth
@@ -186,7 +187,7 @@ const ResetPassword = () => {
             >
               {isLoading ? 'Resetting Password...' : 'Reset Password'}
             </Button>
-            
+
             <div className="o-auth-form__links">
               <Link to="/login" className="o-link">Back to Login</Link>
             </div>

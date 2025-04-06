@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { CONSTANTS } from '../config';
+import '../assets/styles/Home.css';
 
-const Home = () => {
+const Home = () => { 
   return (
     <div className="o-page o-page--home">
       <div className="o-home-hero">

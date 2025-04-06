@@ -10,27 +10,31 @@ class UserAdmin(BaseUserAdmin):
     """
     Custom admin view for User model
     """
-    list_display = ('email', 'first_name', 'last_name', 'user_type', 'is_staff', 'is_active', 'date_joined')
-    list_filter = ('is_active', 'is_staff', 'user_type')
-    search_fields = ('email', 'first_name', 'last_name')
-    ordering = ('-date_joined',)
+    list_display = ('username', 'email', 'user_type', 'is_admin_created', 'is_active')
+    list_filter = ('is_active', 'user_type', 'is_admin_created')
     
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        (_('Personal info'), {'fields': ('username', 'first_name', 'last_name', 'profile_picture', 'phone_number')}),
-        (_('User type'), {'fields': ('user_type',)}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('date_joined',)}),
+        (None, {'fields': ('username', 'email', 'password')}),
+        (_('Personal info'), {'fields': ('user_type',)}),
+        (_('Permissions'), {'fields': ('is_active', 'is_superuser', 'is_admin_created')}),
+        (_('Groups and Permissions'), {'fields': ('groups', 'user_permissions')}),
     )
     
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'username', 'password1', 'password2', 'first_name', 'last_name', 'user_type'),
+            'fields': ('email', 'username', 'password1', 'password2', 'user_type', 'is_admin_created'),
         }),
     )
-
-    readonly_fields = ('date_joined',)
+    
+    search_fields = ('email', 'username')
+    ordering = ('username', 'email')
+    filter_horizontal = ('groups', 'user_permissions',)
+    
+    def save_model(self, request, obj, form, change):
+        if not change:  # New object
+            obj.is_admin_created = True  # Set flag for admin-created users
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(UserActivity)

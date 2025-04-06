@@ -6,6 +6,7 @@ import Card from '../../components/common/Card';
 import Button from '../../components/common/Button';
 import apiService from '../../services/api';
 import toast from 'react-hot-toast';
+import "../../assets/styles/dashboard/AdminDashboard.css";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({

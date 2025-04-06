@@ -1,10 +1,9 @@
-// src/components/layout/Layout.jsx
-
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
+import '../../assets/styles/layout/Layout.css';
 
 const Layout = () => {
   return (
@@ -13,7 +12,9 @@ const Layout = () => {
       <div className="main-container">
         <Sidebar />
         <main className="content-area">
-          <Outlet />
+          <div className="content-wrapper">
+            <Outlet />
+          </div>
         </main>
       </div>
       <Footer />

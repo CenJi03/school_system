@@ -1,0 +1,53 @@
+/* Create this new file to address any remaining white space issues */
+
+/* Reset all potential spacing issues */
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Debug borders - uncomment to identify issue elements */
+/*
+.app-container, .main-container, .content-area, .content-wrapper, .o-dashboard {
+  border: 1px solid red;
+}
+*/
+
+/* Fix all potential containers */
+#root,
+.app-root,
+.app-container,
+.main-container,
+.content-area,
+.content-wrapper,
+.o-dashboard,
+.o-page {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  overflow-x: hidden;
+}
+
+/* Ensure scrolling works properly */
+body {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Fix any media query issues */
+@media (min-width: 1024px) {
+  .content-wrapper {
+    padding: var(--space-lg);
+  }
+}
+
+/* Import this file in your App.jsx */

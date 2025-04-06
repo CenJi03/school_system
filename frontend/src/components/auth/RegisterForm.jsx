@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import Button from '../common/Button';
+import '../../assets/styles/auth/auth.css';
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -57,6 +58,14 @@ const RegisterForm = () => {
       ...formData,
       [name]: type === 'checkbox' ? checked : value
     });
+    
+    // Clear error when user types
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: null
+      });
+    }
   };
   
   const handleSubmit = async (e) => {
@@ -67,14 +76,45 @@ const RegisterForm = () => {
     }
     
     setIsLoading(true);
+    setErrors({});
     
     try {
-      await register(formData);
-      navigate('/login', { state: { registered: true } });
-    } catch (error) {
-      setErrors({
-        form: error.message || 'Registration failed'
+      // Create registration data with proper field names
+      const registrationData = {
+        fullName: formData.fullName.trim(),
+        email: formData.email.trim(),
+        password: formData.password,
+        role: formData.role || 'student',
+        agreeTerms: formData.agreeTerms
+      };
+      
+      await register(registrationData);
+      
+      // If successful, redirect to login
+      navigate('/login', { 
+        state: { registered: true },
+        replace: true
       });
+    } catch (error) {
+      console.error('Registration error details:', error);
+      
+      // Handle specific error cases
+      if (error.message.includes('email')) {
+        setErrors({
+          ...errors,
+          email: 'This email address is already in use',
+          form: 'Registration failed. Please check the form and try again.'
+        });
+      } else if (error.message.includes('username')) {
+        setErrors({
+          ...errors,
+          form: 'Username already exists. Try using a different email address.'
+        });
+      } else {
+        setErrors({
+          form: error.message || 'Registration failed. Please try again.'
+        });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -134,6 +174,7 @@ const RegisterForm = () => {
             disabled={isLoading}
           />
           {errors.password && <div className="o-form-feedback">{errors.password}</div>}
+          <small className="o-form-text text-muted">Password must be at least 8 characters long</small>
         </div>
         
         <div className="o-form-group">
@@ -149,22 +190,6 @@ const RegisterForm = () => {
             disabled={isLoading}
           />
           {errors.confirmPassword && <div className="o-form-feedback">{errors.confirmPassword}</div>}
-        </div>
-        
-        <div className="o-form-group">
-          <label htmlFor="role" className="o-form-label">I am a</label>
-          <select
-            id="role"
-            name="role"
-            className="o-form-control"
-            value={formData.role}
-            onChange={handleChange}
-            disabled={isLoading}
-          >
-            <option value="student">Student</option>
-            <option value="teacher">Teacher</option>
-            <option value="parent">Parent</option>
-          </select>
         </div>
         
         <div className="o-form-group o-form-check">

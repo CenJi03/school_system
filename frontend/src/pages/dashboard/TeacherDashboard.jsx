@@ -7,6 +7,7 @@ import Button from '../../components/common/Button';
 import apiService from '../../services/api';
 import { useAuth } from '../../hooks/useAuth';
 import toast from 'react-hot-toast';
+import "../../assets/styles/dashboard/TeacherDashboard.css";
 
 const TeacherDashboard = () => {
   const { user } = useAuth();

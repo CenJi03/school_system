@@ -1,0 +1,384 @@
+/* Dashboard Styles */
+:root {
+  /* Color Palette */
+  --color-primary: #3498db;
+  --color-secondary: #2ecc71;
+  --color-background: #f4f6f7;
+  --color-text-dark: #2c3e50;
+  --color-text-light: #7f8c8d;
+  --color-border: #ecf0f1;
+  
+  /* Shadows */
+  --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.08);
+  
+  /* Typography */
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  
+  /* Animations */
+  --transition-base: all 0.3s ease-in-out;
+}
+
+/* Dashboard Base Styles */
+.o-dashboard {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: var(--color-background);
+  font-family: var(--font-family-base);
+  color: var(--color-text-dark);
+}
+
+.o-dashboard__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.o-dashboard__header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-text-dark);
+}
+
+.o-dashboard__actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Stats Cards */
+.o-dashboard__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.o-stat-card {
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-base);
+}
+
+.o-stat-card__value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.o-stat-card__icon {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  font-size: 3rem;
+  color: rgba(52, 152, 219, 0.2);
+  z-index: 1;
+}
+
+.o-stat-card__link {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--color-text-light);
+  text-decoration: none;
+  transition: var(--transition-base);
+}
+
+.o-stat-card__link:hover {
+  color: var(--color-primary);
+}
+
+/* Dashboard Cards */
+.o-dashboard__card {
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-soft);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.o-table-responsive {
+  overflow-x: auto;
+}
+
+.o-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.o-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.o-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.o-table--hover tr:hover {
+  background-color: rgba(46, 204, 113, 0.05);
+}
+
+/* Empty State */
+.o-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-text-light);
+}
+
+.o-empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--color-text-light);
+}
+
+/* Loading Styles */
+.o-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.o-loading__spinner {
+  border: 4px solid rgba(52, 152, 219, 0.2);
+  border-top: 4px solid var(--color-primary);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Quick Links */
+.o-quick-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.o-quick-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-decoration: none;
+  color: var(--color-text-dark);
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition-base);
+}
+
+.o-quick-link:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
+  color: var(--color-primary);
+}
+
+.o-quick-link i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-primary);
+}
+
+/* Progress Meter */
+.o-progress-meter {
+  background-color: #f1f3f4;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.o-progress-meter__label {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.o-progress-meter__bar {
+  height: 6px;
+  background-color: #e0e0e0;
+}
+
+.o-progress-meter__fill {
+  height: 100%;
+  background-color: var(--color-primary);
+  transition: width 0.5s ease-in-out;
+}
+
+/* Status Tags */
+.o-tag {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.o-tag--pending {
+  background-color: rgba(241, 196, 15, 0.1);
+  color: #f1c40f;
+}
+
+.o-tag--completed {
+  background-color: rgba(46, 204, 113, 0.1);
+  color: #2ecc71;
+}
+
+.o-tag--in-progress {
+  background-color: rgba(52, 152, 219, 0.1);
+  color: #3498db;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+  .o-dashboard__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .o-dashboard__actions {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .o-dashboard__stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Student Dashboard Specific Styles */
+.o-courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.o-course-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  transition: var(--transition-base);
+}
+
+.o-course-card:hover {
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-5px);
+}
+
+.o-course-card__header {
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.o-course-level {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.o-course-level--beginner {
+  background-color: rgba(46, 204, 113, 0.1);
+  color: #2ecc71;
+}
+
+.o-course-level--intermediate {
+  background-color: rgba(241, 196, 15, 0.1);
+  color: #f1c40f;
+}
+
+.o-course-level--advanced {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+}
+
+.o-course-card__body {
+  padding: 1rem;
+}
+
+.o-course-card__title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: var(--color-text-dark);
+}
+
+.o-course-card__teacher {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-light);
+}
+
+.o-course-card__teacher i {
+  margin-right: 0.5rem;
+}
+
+.o-course-card__footer {
+  padding: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Progress Circle for Student Dashboard */
+.o-progress-circle__svg {
+  width: 100%;
+  max-width: 200px;
+  transform: rotate(-90deg);
+}
+
+.o-progress-circle__bg {
+  fill: none;
+  stroke: #e0e0e0;
+  stroke-width: 3;
+}
+
+.o-progress-circle__fill {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dasharray 1s ease-in-out;
+}
+
+.o-progress-circle__text {
+  fill: var(--color-primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-anchor: middle;
+  transform: rotate(90deg);
+}

@@ -6,9 +6,13 @@ const routes = [
     {
       path: '/',
       name: 'home',
-      component: 'Home',
-      exact: true,
-      public: true
+      component: ({ user }) => {
+        if (user && user.role === 'admin') {
+          return <Navigate to="/admin/dashboard" replace />;
+        }
+        return <Home />;
+      },
+      roles: ['all']
     },
     {
       path: '/login',
@@ -36,6 +40,12 @@ const routes = [
     },
     
     // Dashboard routes
+    {
+      path: '/admin/dashboard',
+      name: 'adminDashboard',
+      component: 'AdminDashboard',
+      roles: ['admin']
+    },
     {
       path: '/dashboard',
       name: 'dashboard',

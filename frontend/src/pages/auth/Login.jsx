@@ -1,31 +1,19 @@
+// src/pages/auth/Login.jsx
+
 import React, { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 import LoginForm from '../../components/auth/LoginForm';
-import toast from 'react-hot-toast';
+import { useAuth } from '../../hooks/useAuth';
+import '../../assets/styles/auth/auth.css';
 
 const Login = () => {
-  const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
-  
+
   useEffect(() => {
     // Set page title
     document.title = 'Login | Language School Management';
-    
-    // Check if user was redirected from registration
-    if (location.state?.registered) {
-      toast.success('Registration successful! Please log in.');
-    }
-    
-    // Check if session expired
-    const params = new URLSearchParams(location.search);
-    if (params.get('session_expired') === 'true') {
-      toast.error('Your session has expired. Please log in again.');
-    }
-  }, [location]);
-  
-  useEffect(() => {
+
     // Redirect if already authenticated
     if (isAuthenticated && user) {
       // Redirect to appropriate dashboard based on role
@@ -36,7 +24,7 @@ const Login = () => {
       }
     }
   }, [isAuthenticated, user, navigate]);
-  
+
   return (
     <div className="o-auth-page o-auth-page--login">
       <div className="o-auth-container">
@@ -45,7 +33,7 @@ const Login = () => {
           <h1 className="o-auth-brand__name">Language School</h1>
           <p className="o-auth-brand__tagline">Learn a language, open new doors</p>
         </div>
-        
+
         <LoginForm />
       </div>
     </div>

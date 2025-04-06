@@ -1,11 +1,12 @@
 // src/pages/dashboard/Dashboard.jsx
 
 import React, { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import AdminDashboard from './AdminDashboard';
 import TeacherDashboard from './TeacherDashboard';
 import StudentDashboard from './StudentDashboard';
+import "../../assets/styles/dashboard/dashboard.css";
 
 /**
  * Dashboard router component that redirects to the appropriate
@@ -13,6 +14,7 @@ import StudentDashboard from './StudentDashboard';
  */
 const Dashboard = () => {
   const { user, isAuthenticated, loading } = useAuth();
+  const location = useLocation();
   
   useEffect(() => {
     // Set page title
@@ -32,18 +34,13 @@ const Dashboard = () => {
     return <Navigate to="/login" replace />;
   }
   
-  // Display the appropriate dashboard based on user role
-  switch (user.role) {
-    case 'admin':
-      return <AdminDashboard />;
-    case 'teacher':
-      return <TeacherDashboard />;
-    case 'student':
-      return <StudentDashboard />;
-    default:
-      // Fallback if role is unknown
-      return <StudentDashboard />;
+  // If user is admin and we're at the general dashboard, redirect to admin dashboard
+  if (user.role === 'admin' && location.pathname === '/dashboard') {
+    return <Navigate to="/dashboard" replace />;
   }
+
+  // Always return the admin dashboard
+  return <AdminDashboard />;
 };
 
 export default Dashboard;

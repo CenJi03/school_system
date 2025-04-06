@@ -24,6 +24,14 @@ from .adapters import get_client_ip
 User = get_user_model()
 
 
+class IsAdminUser(permissions.BasePermission):
+    """
+    Allows access only to admin users.
+    """
+    def has_permission(self, request, view):
+        return request.user and request.user.is_staff
+
+
 class UserViewSet(viewsets.ModelViewSet):
     """
     ViewSet for viewing and editing user instances.
